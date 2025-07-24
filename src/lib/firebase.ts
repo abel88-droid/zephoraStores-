@@ -19,7 +19,6 @@ let app: FirebaseApp;
 let auth: Auth;
 let db: Firestore;
 
-// This check ensures that Firebase is only initialized on the client side.
 if (typeof window !== "undefined" && !getApps().length) {
   try {
     app = initializeApp(firebaseConfig);
@@ -27,22 +26,21 @@ if (typeof window !== "undefined" && !getApps().length) {
     db = getFirestore(app);
   } catch (e) {
     console.error("Failed to initialize Firebase", e);
-    // Provide dummy objects to prevent the app from crashing on import
-    // if initialization fails.
+    // Fallback to dummy objects if initialization fails
     app = {} as FirebaseApp;
     auth = {} as Auth;
     db = {} as Firestore;
   }
 } else if (getApps().length) {
-  // If the app is already initialized, get the existing instances.
   app = getApp();
   auth = getAuth(app);
   db = getFirestore(app);
 } else {
-    // On the server, we provide dummy objects to prevent crashing.
+    // Provide dummy objects for server-side rendering
     app = {} as FirebaseApp;
     auth = {} as Auth;
     db = {} as Firestore;
 }
+
 
 export { app, db, auth };
