@@ -31,7 +31,7 @@ export default function Home() {
           Find Your Colors
         </h1>
         <p className="mt-4 text-lg text-muted-foreground">
-          Exclusive drops | Zero repeats.
+          Not just jerseys. A movement!
         </p>
       </header>
 
