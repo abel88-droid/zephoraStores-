@@ -1,7 +1,7 @@
 // Import the functions you need from the SDKs you need
-import { initializeApp, getApp, getApps, FirebaseApp } from "firebase/app";
-import { getFirestore, Firestore } from "firebase/firestore";
-import { getAuth, Auth } from "firebase/auth";
+import { initializeApp, getApp, getApps, type FirebaseApp } from "firebase/app";
+import { getFirestore, type Firestore } from "firebase/firestore";
+import { getAuth, type Auth } from "firebase/auth";
 
 // Your web app's Firebase configuration is read from environment variables
 const firebaseConfig = {
@@ -13,30 +13,35 @@ const firebaseConfig = {
   appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID,
 };
 
-// Initialize Firebase
+// Initialize Firebase for client-side usage
 let app: FirebaseApp;
-let db: Firestore;
 let auth: Auth;
+let db: Firestore;
 
-// This check prevents the app from crashing on the server if the environment variables are not set.
-if (
-  firebaseConfig.apiKey &&
-  firebaseConfig.authDomain &&
-  firebaseConfig.projectId
-) {
-  app = !getApps().length ? initializeApp(firebaseConfig) : getApp();
-  db = getFirestore(app);
-  auth = getAuth(app);
-} else {
-    // In a server environment without the keys, we can't initialize.
-    // On the client, this shouldn't happen if env vars are set correctly.
-    console.error("Firebase configuration is missing. Make sure to set the environment variables.");
-    // We provide dummy objects to prevent the app from crashing on import.
-    // The app will not function correctly without proper initialization.
+// This check ensures that Firebase is only initialized on the client side.
+if (typeof window !== "undefined" && !getApps().length) {
+  try {
+    app = initializeApp(firebaseConfig);
+    auth = getAuth(app);
+    db = getFirestore(app);
+  } catch (e) {
+    console.error("Failed to initialize Firebase", e);
+    // Provide dummy objects to prevent the app from crashing on import
+    // if initialization fails.
     app = {} as FirebaseApp;
-    db = {} as Firestore;
     auth = {} as Auth;
+    db = {} as Firestore;
+  }
+} else if (getApps().length) {
+  // If the app is already initialized, get the existing instances.
+  app = getApp();
+  auth = getAuth(app);
+  db = getFirestore(app);
+} else {
+    // On the server, we provide dummy objects to prevent crashing.
+    app = {} as FirebaseApp;
+    auth = {} as Auth;
+    db = {} as Firestore;
 }
-
 
 export { app, db, auth };
