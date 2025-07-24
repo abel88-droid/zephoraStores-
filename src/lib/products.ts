@@ -8,7 +8,7 @@ export const products: Product[] = [
     price: 250,
     images: [
       "/images/arsenal-ozil.png",
-      "https://placehold.co/600x600.png"
+      "/images/arsenal-ozil2.png"
     ],
     category: "Club",
     features: ["Official Licensed Product", "Breathable Fabric", "Authentic Fit"],
