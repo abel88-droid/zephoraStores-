@@ -14,6 +14,9 @@ import * as z from "zod";
 import { ArrowLeft, CreditCard, ShoppingBag, Truck, CheckCircle, Loader2, MessageCircle, TruckIcon } from "lucide-react";
 import { createOrder } from "@/services/orders";
 import { RadioGroup, RadioGroupItem } from "./ui/radio-group";
+import { useAuth } from "@/context/AuthContext";
+import { useRouter } from "next/navigation";
+import { useToast } from "@/hooks/use-toast";
 
 const steps = [
   { id: 1, name: "Review Cart", icon: ShoppingBag },
@@ -36,6 +39,10 @@ type PaymentMethod = "Card" | "CashOnDelivery" | "WhatsApp";
 
 export default function CheckoutClient() {
   const { cartItems, cartTotal, updateQuantity, removeFromCart, clearCart } = useCart();
+  const { currentUser } = useAuth();
+  const router = useRouter();
+  const { toast } = useToast();
+
   const [step, setStep] = useState(1);
   const [shippingInfo, setShippingInfo] = useState<ShippingFormData | null>(null);
   const [paymentMethod, setPaymentMethod] = useState<PaymentMethod>("Card");
@@ -44,6 +51,19 @@ export default function CheckoutClient() {
   const { register, handleSubmit, formState: { errors } } = useForm<ShippingFormData>({
     resolver: zodResolver(shippingSchema),
   });
+  
+  const handleProceedToShipping = () => {
+    if (!currentUser) {
+      toast({
+        title: "Please Login",
+        description: "You need to be logged in to proceed with checkout.",
+        variant: "destructive"
+      });
+      router.push('/login');
+    } else {
+      setStep(2);
+    }
+  }
 
   const onShippingSubmit: SubmitHandler<ShippingFormData> = (data) => {
     setShippingInfo(data);
@@ -68,6 +88,7 @@ export default function CheckoutClient() {
           total: cartTotal,
           shippingDetails: shippingInfo,
           paymentMethod: paymentMethod,
+          userId: currentUser?.uid
         });
         
         clearCart();
@@ -160,7 +181,7 @@ export default function CheckoutClient() {
             </div>
           </CardContent>
           <CardFooter>
-            <Button onClick={() => setStep(2)} className="ml-auto w-full md:w-auto" disabled={cartItems.length === 0}>Proceed to Shipping</Button>
+            <Button onClick={handleProceedToShipping} className="ml-auto w-full md:w-auto" disabled={cartItems.length === 0}>Proceed to Shipping</Button>
           </CardFooter>
         </Card>
       )}
