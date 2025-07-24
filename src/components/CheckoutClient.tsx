@@ -127,7 +127,7 @@ export default function CheckoutClient() {
     <div className="mt-8">
       <div className="mb-8 flex items-center justify-center">
         {steps.map((s, index) => (
-          <>
+          <React.Fragment key={s.id}>
             <div className="flex flex-col items-center gap-2">
               <div
                 className={`flex h-12 w-12 items-center justify-center rounded-full border-2 ${
@@ -139,7 +139,7 @@ export default function CheckoutClient() {
               <p className={`text-sm font-medium ${step >= s.id ? 'text-primary' : 'text-muted-foreground'}`}>{s.name}</p>
             </div>
             {index < steps.length - 1 && <div className={`h-1 flex-1 ${step > s.id ? 'bg-primary' : 'bg-border'} mx-4 mb-8`}></div>}
-          </>
+          </React.Fragment>
         ))}
       </div>
 
