@@ -7,7 +7,7 @@ export const products: Product[] = [
     description: " A true legend in red and white, engineered for peak performance and style. Wear the crest of champions.",
     price: 250,
     images: [
-      "https://i.ibb.co/6wm0345/31f25373-c640-4595-888e-1763e1c95358.jpg",
+      "https://i.ibb.co/L8y7hM7/31f25373-c640-4595-888e-1763e1c95358.jpg",
       "https://placehold.co/600x600.png"
     ],
     category: "Club",
