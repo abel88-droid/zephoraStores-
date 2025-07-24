@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import React, { useState } from "react";
 import { useCart } from "@/hooks/useCart";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
