@@ -1,9 +1,9 @@
+
 "use server";
 
 import { db } from "@/lib/firebase";
 import { collection, addDoc, serverTimestamp, getDocs, query, where, orderBy } from "firebase/firestore";
 import { type Order } from "@/types";
-import { generateConfirmationEmail } from "@/ai/flows/emailConfirmationFlow";
 
 export async function createOrder(order: Omit<Order, 'id' | 'createdAt'>): Promise<string> {
   try {
@@ -13,18 +13,8 @@ export async function createOrder(order: Omit<Order, 'id' | 'createdAt'>): Promi
     });
     console.log("Order created with ID: ", docRef.id);
     
-    // Generate email content but don't send
-    try {
-        await generateConfirmationEmail({
-            orderId: docRef.id,
-            customerName: order.shippingDetails.fullName,
-            items: order.items.map(item => ({ name: item.name, quantity: item.quantity, price: item.price })),
-            total: order.total
-        });
-        console.log(`Generated email content for order ${docRef.id}`);
-    } catch(emailError) {
-        console.error("Failed to generate confirmation email content:", emailError);
-    }
+    // The AI email generation has been removed to keep the app free.
+    // In a real application, you could integrate with an email service here.
 
     return docRef.id;
   } catch (e) {
