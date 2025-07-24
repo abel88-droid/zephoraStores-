@@ -1,11 +1,18 @@
 import { products } from "@/lib/products";
 import Image from "next/image";
 import { notFound } from "next/navigation";
-import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { CheckCircle } from "lucide-react";
 import ProductCard from "@/components/ProductCard";
 import AddToCartButton from "./AddToCartButton";
+import { Card, CardContent } from "@/components/ui/card";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "@/components/ui/carousel";
 
 export function generateStaticParams() {
   return products.map((product) => ({
@@ -25,15 +32,27 @@ export default function ProductPage({ params }: { params: { id: string } }) {
   return (
     <div className="container mx-auto px-4 py-12">
       <div className="grid grid-cols-1 gap-12 md:grid-cols-2">
-        <div className="relative h-[500px] w-full overflow-hidden rounded-lg shadow-xl">
-          <Image
-            src={product.image}
-            alt={product.name}
-            fill
-            className="object-cover"
-            data-ai-hint={product.dataAiHint}
-          />
-        </div>
+        <Carousel className="w-full">
+          <CarouselContent>
+            {product.images.map((image, index) => (
+              <CarouselItem key={index}>
+                <Card>
+                  <CardContent className="relative aspect-square h-full w-full">
+                    <Image
+                      src={image}
+                      alt={`${product.name} - image ${index + 1}`}
+                      fill
+                      className="object-cover rounded-lg"
+                       data-ai-hint={product.dataAiHint}
+                    />
+                  </CardContent>
+                </Card>
+              </CarouselItem>
+            ))}
+          </CarouselContent>
+          <CarouselPrevious className="absolute left-2 top-1/2 -translate-y-1/2" />
+          <CarouselNext className="absolute right-2 top-1/2 -translate-y-1/2" />
+        </Carousel>
         <div className="flex flex-col justify-center">
           <Badge variant="outline" className="w-fit border-accent text-accent">
             {product.category}

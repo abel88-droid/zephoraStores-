@@ -33,7 +33,7 @@ export default function ProductCard({ product }: ProductCardProps) {
         <CardContent className="p-0">
           <div className="relative h-64 w-full">
             <Image
-              src={product.image}
+              src={product.images[0]}
               alt={product.name}
               fill
               className="object-cover transition-transform duration-300 group-hover:scale-105"

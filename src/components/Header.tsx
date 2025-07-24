@@ -69,7 +69,7 @@ export default function Header() {
                     {cartItems.map((item) => (
                       <div key={item.id} className="flex items-center gap-4 py-4">
                         <Image
-                          src={item.image}
+                          src={item.images[0]}
                           alt={item.name}
                           width={64}
                           height={64}

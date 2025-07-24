@@ -157,7 +157,7 @@ export default function CheckoutClient() {
           <CardContent>
             {cartItems.map(item => (
               <div key={item.id} className="flex items-center gap-4 py-4">
-                <Image src={item.image} alt={item.name} width={80} height={80} className="rounded-md" data-ai-hint={item.dataAiHint} />
+                <Image src={item.images[0]} alt={item.name} width={80} height={80} className="rounded-md" data-ai-hint={item.dataAiHint} />
                 <div className="flex-1">
                   <h3 className="font-semibold">{item.name}</h3>
                   <p className="text-sm text-muted-foreground">₹{item.price.toFixed(0)}</p>

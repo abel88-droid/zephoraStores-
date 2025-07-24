@@ -5,7 +5,7 @@ export interface Product {
   name: string;
   description: string;
   price: number;
-  image: string;
+  images: string[];
   category: 'Club' | 'National' | 'Retro';
   features: string[];
   dataAiHint: string;
