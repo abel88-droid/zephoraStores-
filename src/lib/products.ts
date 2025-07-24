@@ -5,9 +5,9 @@ export const products: Product[] = [
     id: "1",
     name: "Arsenal Home jersey(Özil)",
     description: " A true legend in red and white, engineered for peak performance and style. Wear the crest of champions.",
-    price: 2000,
+    price: 250,
     images: [
-      "https://i.ibb.co/gLM4PQB/31f25373-c640-4595-888e-1763e1c95358.jpg",
+      "https://i.ibb.co/6wm0345/31f25373-c640-4595-888e-1763e1c95358.jpg",
       "https://placehold.co/600x600.png"
     ],
     category: "Club",
@@ -18,7 +18,7 @@ export const products: Product[] = [
     id: "2",
     name: "Argentina 2024 Home Jersey",
     description: "The classic Albiceleste stripes, celebrating the world champions. Made with lightweight, sweat-wicking fabric for comfort.",
-    price: 1500,
+    price: 150,
     images: ["https://placehold.co/600x600.png"],
     category: "National",
     features: ["Woven Crest", "Moisture-wicking AEROREADY", "Made with Recycled Materials"],
