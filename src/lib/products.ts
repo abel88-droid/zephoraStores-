@@ -6,7 +6,7 @@ export const products: Product[] = [
     name: "Arsenal Home jersey(Özil)",
     description: " A true legend in red and white, engineered for peak performance and style. Wear the crest of champions.",
     price: 2000,
-    images: ["https://placehold.co/600x600.png"],
+    images: ["https://i.ibb.co/6wm0345/31f25373-c640-4595-888e-1763e1c95358.jpg"],
     category: "Club",
     features: ["Official Licensed Product", "Breathable Fabric", "Authentic Fit"],
     dataAiHint: "football jersey"
