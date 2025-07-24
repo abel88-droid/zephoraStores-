@@ -7,7 +7,7 @@ export const products: Product[] = [
     description: " A true legend in red and white, engineered for peak performance and style. Wear the crest of champions.",
     price: 250,
     images: [
-      "/images/arsenal-ozil.jpg",
+      "/images/arsenal-ozil.png",
       "https://placehold.co/600x600.png"
     ],
     category: "Club",
@@ -18,7 +18,7 @@ export const products: Product[] = [
     id: "2",
     name: "Argentina 2024 Home Jersey",
     description: "The classic Albiceleste stripes, celebrating the world champions. Made with lightweight, sweat-wicking fabric for comfort.",
-    price: 150,
+    price: 250,
     images: ["https://placehold.co/600x600.png"],
     category: "National",
     features: ["Woven Crest", "Moisture-wicking AEROREADY", "Made with Recycled Materials"],
