@@ -8,7 +8,7 @@ import Footer from '@/components/Footer';
 
 export const metadata: Metadata = {
   title: 'Zephora Stores',
-  description: 'Not just jerseys. A movement.',
+  description: 'Not just jerseys. A movement!',
 };
 
 export default function RootLayout({
