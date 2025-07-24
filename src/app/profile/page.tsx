@@ -78,14 +78,14 @@ export default function ProfilePage() {
                         {order.items.map(item => (
                             <li key={item.id} className="flex justify-between items-center text-sm">
                                 <span>{item.name} x {item.quantity}</span>
-                                <span className="font-medium">${(item.price * item.quantity).toFixed(2)}</span>
+                                <span className="font-medium">₹{(item.price * item.quantity).toFixed(0)}</span>
                             </li>
                         ))}
                     </ul>
                     <Separator className="my-3"/>
                      <div className="flex justify-between font-bold">
                         <span>Total</span>
-                        <span>${order.total.toFixed(2)}</span>
+                        <span>₹{order.total.toFixed(0)}</span>
                     </div>
                   </CardContent>
                 </Card>

@@ -77,7 +77,7 @@ export default function CheckoutClient() {
     
     try {
       if (paymentMethod === "WhatsApp") {
-         const message = `I'd like to place an order with the following items:\n\n${cartItems.map(item => `${item.name} (x${item.quantity})`).join('\n')}\n\nTotal: $${cartTotal.toFixed(2)}`;
+         const message = `I'd like to place an order with the following items:\n\n${cartItems.map(item => `${item.name} (x${item.quantity})`).join('\n')}\n\nTotal: ₹${cartTotal.toFixed(0)}`;
          const whatsappUrl = `https://wa.me/917907971221?text=${encodeURIComponent(message)}`;
          window.open(whatsappUrl, '_blank');
          clearCart();
@@ -160,7 +160,7 @@ export default function CheckoutClient() {
                 <Image src={item.image} alt={item.name} width={80} height={80} className="rounded-md" data-ai-hint={item.dataAiHint} />
                 <div className="flex-1">
                   <h3 className="font-semibold">{item.name}</h3>
-                  <p className="text-sm text-muted-foreground">${item.price.toFixed(2)}</p>
+                  <p className="text-sm text-muted-foreground">₹{item.price.toFixed(0)}</p>
                 </div>
                 <div className="flex items-center gap-2">
                   <Input 
@@ -177,7 +177,7 @@ export default function CheckoutClient() {
             ))}
             <Separator className="my-4"/>
             <div className="text-right font-bold text-xl">
-              Total: ${cartTotal.toFixed(2)}
+              Total: ₹{cartTotal.toFixed(0)}
             </div>
           </CardContent>
           <CardFooter>
@@ -292,7 +292,7 @@ export default function CheckoutClient() {
           <CardFooter>
             <Button onClick={handleFinalizeOrder} className="ml-auto w-full md:w-auto" disabled={isProcessing}>
               {isProcessing ? <Loader2 className="animate-spin" /> : 
-                paymentMethod === "Card" ? `Pay $${cartTotal.toFixed(2)}` : "Place Order"
+                paymentMethod === "Card" ? `Pay ₹${cartTotal.toFixed(0)}` : "Place Order"
               }
             </Button>
           </CardFooter>

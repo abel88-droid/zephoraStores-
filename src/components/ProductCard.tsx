@@ -47,7 +47,7 @@ export default function ProductCard({ product }: ProductCardProps) {
               {product.name}
             </CardTitle>
             <div className="mt-4 flex items-center justify-between">
-              <p className="text-xl font-bold text-primary">${product.price.toFixed(2)}</p>
+              <p className="text-xl font-bold text-primary">₹{product.price.toFixed(0)}</p>
               <Button
                 onClick={handleAddToCart}
                 size="icon"

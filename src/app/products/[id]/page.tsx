@@ -57,7 +57,7 @@ export default function ProductPage({ params }: { params: { id: string } }) {
           </div>
           <div className="mt-8 flex items-center justify-between">
             <p className="font-headline text-4xl font-bold text-primary">
-              ${product.price.toFixed(2)}
+              ₹{product.price.toFixed(0)}
             </p>
             <AddToCartButton product={product} />
           </div>
