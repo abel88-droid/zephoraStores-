@@ -5,18 +5,19 @@ import { getAuth } from "firebase/auth";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
-// Your web app's Firebase configuration
+// Your web app's Firebase configuration is read from environment variables
 const firebaseConfig = {
-  "projectId": "zephora-luxe",
-  "appId": "1:492661900997:web:b63c0be31cb5131caa92ac",
-  "storageBucket": "zephora-luxe.firebasestorage.app",
-  "apiKey": "AIzaSyDasLgsw8WBXTgJmo2m0W-Kcwmp_0Ioq7k",
-  "authDomain": "zephora-luxe.firebaseapp.com",
-  "messagingSenderId": "492661900997"
+  apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
+  authDomain: process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN,
+  projectId: process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID,
+  storageBucket: process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: process.env.NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID,
+  appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID,
 };
 
 // Initialize Firebase
 const app = getApps().length ? getApp() : initializeApp(firebaseConfig);
+
 const db = getFirestore(app);
 const auth = getAuth(app);
 
