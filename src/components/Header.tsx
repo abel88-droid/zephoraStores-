@@ -23,7 +23,7 @@ export default function Header() {
         <div className="flex items-center gap-6">
           <Link href="/" className="flex items-center gap-2">
             <span className="font-headline text-2xl font-bold text-primary">
-              Zephora Luxe
+              Zephora Stores
             </span>
           </Link>
           <nav className="hidden items-center gap-6 md:flex">
@@ -108,7 +108,7 @@ export default function Header() {
                 </SheetTrigger>
                 <SheetContent side="left">
                    <Link href="/" className="flex items-center gap-2 mb-8">
-                     <span className="font-headline text-2xl font-bold text-primary">Zephora Luxe</span>
+                     <span className="font-headline text-2xl font-bold text-primary">Zephora Stores</span>
                    </Link>
                   <nav className="flex flex-col gap-4">
                     {/* Add links to categories or other pages here */}

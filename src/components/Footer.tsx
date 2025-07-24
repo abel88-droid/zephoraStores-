@@ -7,8 +7,8 @@ export default function Footer() {
       <div className="container mx-auto px-4 py-8">
         <div className="grid grid-cols-1 gap-8 text-center md:grid-cols-3 md:text-left">
           <div>
-            <h3 className="font-headline text-lg font-bold text-primary">Zephora Luxe</h3>
-            <p className="mt-2 text-sm text-muted-foreground">Elegance Redefined.</p>
+            <h3 className="font-headline text-lg font-bold text-primary">Zephora Stores</h3>
+            <p className="mt-2 text-sm text-muted-foreground">Not just jerseys. A movement.</p>
           </div>
           <div>
             <h4 className="font-semibold">Quick Links</h4>
@@ -27,7 +27,7 @@ export default function Footer() {
           </div>
         </div>
         <div className="mt-8 border-t pt-4 text-center text-sm text-muted-foreground">
-          <p>&copy; {new Date().getFullYear()} Zephora Luxe. All rights reserved.</p>
+          <p>&copy; {new Date().getFullYear()} Zephora Stores. All rights reserved.</p>
         </div>
       </div>
     </footer>

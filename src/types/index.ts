@@ -4,7 +4,7 @@ export interface Product {
   description: string;
   price: number;
   image: string;
-  category: 'Skincare' | 'Makeup' | 'Fragrance';
+  category: 'Club' | 'National' | 'Retro';
   features: string[];
   dataAiHint: string;
 }

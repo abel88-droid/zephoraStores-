@@ -7,7 +7,7 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Search } from "lucide-react";
 
-const categories = ["All", "Skincare", "Makeup", "Fragrance"];
+const categories = ["All", "Club", "National", "Retro"];
 
 export default function Home() {
   const [searchTerm, setSearchTerm] = useState("");
@@ -28,10 +28,10 @@ export default function Home() {
     <div className="container mx-auto px-4 py-8">
       <header className="mb-12 text-center">
         <h1 className="font-headline text-4xl font-bold text-primary md:text-6xl">
-          Discover Your Luxe
+          Find Your Colors
         </h1>
         <p className="mt-4 text-lg text-muted-foreground">
-          Curated collections for the modern connoisseur.
+          Exclusive drops | Zero repeats.
         </p>
       </header>
 
@@ -40,7 +40,7 @@ export default function Home() {
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
           <Input
             type="text"
-            placeholder="Search for products..."
+            placeholder="Search for jerseys..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
             className="w-full rounded-full bg-card py-2 pl-10 pr-4"
