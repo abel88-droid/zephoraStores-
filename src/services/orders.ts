@@ -10,6 +10,7 @@ export async function createOrder(order: Omit<Order, 'id' | 'createdAt'>): Promi
       ...order,
       createdAt: serverTimestamp(),
     });
+    console.log("Order created with ID: ", docRef.id);
     return docRef.id;
   } catch (e) {
     console.error("Error adding document: ", e);

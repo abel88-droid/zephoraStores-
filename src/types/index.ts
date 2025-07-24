@@ -21,6 +21,8 @@ export interface Order {
     city: string;
     zipCode: string;
     country: string;
+    contactNumber: string;
   };
+  paymentMethod: "Card" | "CashOnDelivery" | "WhatsApp";
   createdAt: Date;
 }

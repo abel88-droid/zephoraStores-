@@ -11,8 +11,9 @@ import { Separator } from "@/components/ui/separator";
 import { useForm, type SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
-import { ArrowLeft, CreditCard, ShoppingBag, Truck, CheckCircle, Loader2 } from "lucide-react";
+import { ArrowLeft, CreditCard, ShoppingBag, Truck, CheckCircle, Loader2, MessageCircle, TruckIcon } from "lucide-react";
 import { createOrder } from "@/services/orders";
+import { RadioGroup, RadioGroupItem } from "./ui/radio-group";
 
 const steps = [
   { id: 1, name: "Review Cart", icon: ShoppingBag },
@@ -26,14 +27,18 @@ const shippingSchema = z.object({
   city: z.string().min(2, "City is required"),
   zipCode: z.string().min(5, "Valid ZIP code is required"),
   country: z.string().min(2, "Country is required"),
+  contactNumber: z.string().min(10, "Valid contact number is required"),
 });
 
 type ShippingFormData = z.infer<typeof shippingSchema>;
+type PaymentMethod = "Card" | "CashOnDelivery" | "WhatsApp";
+
 
 export default function CheckoutClient() {
   const { cartItems, cartTotal, updateQuantity, removeFromCart, clearCart } = useCart();
   const [step, setStep] = useState(1);
   const [shippingInfo, setShippingInfo] = useState<ShippingFormData | null>(null);
+  const [paymentMethod, setPaymentMethod] = useState<PaymentMethod>("Card");
   const [isProcessing, setIsProcessing] = useState(false);
   
   const { register, handleSubmit, formState: { errors } } = useForm<ShippingFormData>({
@@ -45,28 +50,40 @@ export default function CheckoutClient() {
     setStep(3);
   };
   
-  const handlePaymentSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
+  const handleFinalizeOrder = async () => {
     if (!shippingInfo) return;
 
     setIsProcessing(true);
     
     try {
-      await createOrder({
-        items: cartItems,
-        total: cartTotal,
-        shippingDetails: shippingInfo,
-      });
-      
-      clearCart();
-      setStep(4);
-
+      if (paymentMethod === "WhatsApp") {
+         const message = `I'd like to place an order with the following items:\n\n${cartItems.map(item => `${item.name} (x${item.quantity})`).join('\n')}\n\nTotal: $${cartTotal.toFixed(2)}`;
+         const whatsappUrl = `https://wa.me/917907971221?text=${encodeURIComponent(message)}`;
+         window.open(whatsappUrl, '_blank');
+         clearCart();
+         setStep(4);
+      } else {
+        await createOrder({
+          items: cartItems,
+          total: cartTotal,
+          shippingDetails: shippingInfo,
+          paymentMethod: paymentMethod,
+        });
+        
+        clearCart();
+        setStep(4);
+      }
     } catch (error) {
-      console.error("Failed to create order:", error);
+      console.error("Failed to process order:", error);
       // Here you could show an error toast to the user
     } finally {
       setIsProcessing(false);
     }
+  }
+
+  const handlePaymentSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    handleFinalizeOrder();
   }
 
   if (step === 4) {
@@ -158,6 +175,11 @@ export default function CheckoutClient() {
                 <Input id="fullName" {...register("fullName")} />
                 {errors.fullName && <p className="text-sm text-destructive mt-1">{errors.fullName.message}</p>}
               </div>
+               <div>
+                <Label htmlFor="contactNumber">Contact No.</Label>
+                <Input id="contactNumber" {...register("contactNumber")} />
+                 {errors.contactNumber && <p className="text-sm text-destructive mt-1">{errors.contactNumber.message}</p>}
+              </div>
               <div className="md:col-span-2">
                 <Label htmlFor="address">Address</Label>
                 <Input id="address" {...register("address")} />
@@ -188,30 +210,71 @@ export default function CheckoutClient() {
 
       {step === 3 && (
         <Card>
-          <CardHeader><CardTitle>Payment Details</CardTitle></CardHeader>
-          <form onSubmit={handlePaymentSubmit}>
-          <CardContent className="space-y-4">
-            <div>
-              <Label htmlFor="cardNumber">Card Number</Label>
-              <Input id="cardNumber" placeholder="0000 0000 0000 0000" disabled={isProcessing}/>
-            </div>
-            <div className="grid grid-cols-2 gap-4">
-              <div>
-                <Label htmlFor="expiryDate">Expiry Date</Label>
-                <Input id="expiryDate" placeholder="MM/YY" disabled={isProcessing}/>
-              </div>
-              <div>
-                <Label htmlFor="cvc">CVC</Label>
-                <Input id="cvc" placeholder="123" disabled={isProcessing}/>
-              </div>
-            </div>
+          <CardHeader><CardTitle>Payment Method</CardTitle></CardHeader>
+          <CardContent>
+            <RadioGroup value={paymentMethod} onValueChange={(v) => setPaymentMethod(v as PaymentMethod)} className="space-y-4">
+              <Label
+                htmlFor="card"
+                className={`flex items-center gap-4 rounded-lg border p-4 transition-all ${paymentMethod === 'Card' ? 'border-primary' : ''}`}
+              >
+                <RadioGroupItem value="Card" id="card" />
+                 <CreditCard className="h-6 w-6" />
+                <div className="flex-1">
+                  <p className="font-semibold">Credit/Debit Card</p>
+                  <p className="text-sm text-muted-foreground">Pay securely with your card.</p>
+                </div>
+              </Label>
+              <Label
+                htmlFor="cod"
+                className={`flex items-center gap-4 rounded-lg border p-4 transition-all ${paymentMethod === 'CashOnDelivery' ? 'border-primary' : ''}`}
+              >
+                <RadioGroupItem value="CashOnDelivery" id="cod" />
+                 <TruckIcon className="h-6 w-6" />
+                <div className="flex-1">
+                   <p className="font-semibold">Cash on Delivery</p>
+                   <p className="text-sm text-muted-foreground">Pay when your order arrives.</p>
+                </div>
+              </Label>
+              <Label
+                htmlFor="whatsapp"
+                className={`flex items-center gap-4 rounded-lg border p-4 transition-all ${paymentMethod === 'WhatsApp' ? 'border-primary' : ''}`}
+              >
+                <RadioGroupItem value="WhatsApp" id="whatsapp" />
+                 <MessageCircle className="h-6 w-6" />
+                <div className="flex-1">
+                   <p className="font-semibold">DM on WhatsApp</p>
+                   <p className="text-sm text-muted-foreground">Finalize your order via chat.</p>
+                </div>
+              </Label>
+            </RadioGroup>
+            
+            {paymentMethod === "Card" && (
+              <form onSubmit={handlePaymentSubmit} className="mt-6 space-y-4 border-t pt-6">
+                 <div>
+                   <Label htmlFor="cardNumber">Card Number</Label>
+                   <Input id="cardNumber" placeholder="0000 0000 0000 0000" disabled={isProcessing}/>
+                 </div>
+                 <div className="grid grid-cols-2 gap-4">
+                   <div>
+                     <Label htmlFor="expiryDate">Expiry Date</Label>
+                     <Input id="expiryDate" placeholder="MM/YY" disabled={isProcessing}/>
+                   </div>
+                   <div>
+                     <Label htmlFor="cvc">CVC</Label>
+                     <Input id="cvc" placeholder="123" disabled={isProcessing}/>
+                   </div>
+                 </div>
+              </form>
+            )}
+
           </CardContent>
           <CardFooter>
-            <Button type="submit" className="ml-auto w-full md:w-auto" disabled={isProcessing}>
-              {isProcessing ? <Loader2 className="animate-spin" /> : `Pay $${cartTotal.toFixed(2)}`}
+            <Button onClick={handleFinalizeOrder} className="ml-auto w-full md:w-auto" disabled={isProcessing}>
+              {isProcessing ? <Loader2 className="animate-spin" /> : 
+                paymentMethod === "Card" ? `Pay $${cartTotal.toFixed(2)}` : "Place Order"
+              }
             </Button>
           </CardFooter>
-          </form>
         </Card>
       )}
     </div>
