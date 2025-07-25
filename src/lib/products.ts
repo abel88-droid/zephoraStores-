@@ -42,7 +42,7 @@ export const products: Product[] = [
     id: "4",
     name: "Sporting Lisbon Home Retro 2001-2003",
     description: "The Beginning of a Legend!",
-    price: ,
+    price: 250,
     images: ["/images/lebenon1.png",
              "/images/lebenon2.png"
             ],
