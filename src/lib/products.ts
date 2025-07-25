@@ -11,17 +11,19 @@ export const products: Product[] = [
       "/images/arsenal-ozil2.png"
     ],
     category: "Club",
-    features: ["Official Licensed Product", "Breathable Fabric", "Authentic Fit"],
+    features: ["Breathable Fabric", "Authentic Fit"],
     dataAiHint: "football jersey"
   },
   {
     id: "2",
-    name: "Argentina 2024 Home Jersey",
-    description: "The classic Albiceleste stripes, celebrating the world champions. Made with lightweight, sweat-wicking fabric for comfort.",
+    name: "White Striped FIGC Italia Away Shirt",
+    description: "The iconic Pirlo 21 Italy Jersey – where elegance meets legacy.",
     price: 250,
-    images: ["https://placehold.co/600x600.png"],
-    category: "National",
-    features: ["Woven Crest", "Moisture-wicking AEROREADY", "Made with Recycled Materials"],
+    images: ["/images/pirlo.png",
+             /images/pirlo2.png
+            ],
+    category: "Retro",
+    features: ["Moisture-wicking AEROREADY", "Made with Recycled Materials"],
     dataAiHint: "soccer uniform"
   },
   {
