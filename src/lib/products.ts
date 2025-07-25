@@ -28,12 +28,14 @@ export const products: Product[] = [
   },
   {
     id: "3",
-    name: "AC Milan 06/07 Retro Home",
-    description: "Relive the glory days of the Rossoneri with this classic retro jersey. A tribute to the legends of the San Siro.",
-    price: 1200,
-    images: ["https://placehold.co/600x600.png"],
+    name: " Santos FC Home Retro 2011/12",
+    description: "The Rise of a Magician!",
+    price: 120,
+    images: ["/images/santos1.png",
+             "/images/santos2.png"
+            ],
     category: "Retro",
-    features: ["Embroidered Badge", "Classic Collar Design", "100% Polyester"],
+    features: ["Classic Collar Design", "100% Polyester"],
     dataAiHint: "retro jersey"
   },
   {
