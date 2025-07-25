@@ -40,12 +40,14 @@ export const products: Product[] = [
   },
   {
     id: "4",
-    name: "Manchester United Away Kit 24/25",
-    description: "The bold new away kit for the Red Devils. Stand out from the crowd and show your support on the road.",
-    price: 1800,
-    images: ["https://placehold.co/600x600.png"],
-    category: "Club",
-    features: ["Official Licensed Product", "Ribbed Crewneck", "Vibrant Colors"],
+    name: "Sporting Lisbon Home Retro 2001-2003",
+    description: "The Beginning of a Legend!",
+    price: ,
+    images: ["/images/lebenon1.png",
+             "/images/lebenon2.png"
+            ],
+    category: "Retro",
+    features: ["Ribbed Crewneck", "Vibrant Colors"],
     dataAiHint: "football jersey"
   },
   {
