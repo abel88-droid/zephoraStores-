@@ -20,7 +20,7 @@ export const products: Product[] = [
     description: "The iconic Pirlo 21 Italy Jersey – where elegance meets legacy.",
     price: 250,
     images: ["/images/pirlo.png",
-             /images/pirlo2.png
+             "/images/pirlo2.png"
             ],
     category: "Retro",
     features: ["Moisture-wicking AEROREADY", "Made with Recycled Materials"],
